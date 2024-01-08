@@ -32,11 +32,9 @@ var init = function (window) {
         }
 
         // TODO 3 / 7 : Call the drawCircle() function 
-        drawCircle()
-        drawCircle()
-        drawCircle()
-        drawCircle()
-        drawCircle()
+        for (var lc = 0; lc < 100; lc++) {
+            drawCircle()
+        }
         ////////////////////////////////////////////////////////////
         ///////////////// PROGRAM LOGIC ////////////////////////////
         ////////////////////////////////////////////////////////////
@@ -48,21 +46,14 @@ var init = function (window) {
         */
         function update() {
             // TODO 4 : Update the circle's position //
-            physikz.updatePosition(0);
-            physikz.updatePosition(1);
-            physikz.updatePosition(2);
-            physikz.updatePosition(3);
-            physikz.updatePosition(4);
-            
             // TODO 5 / 10 : Call game.checkCirclePosition() on your circles.
-            game.checkCirclePosition(0);
-            game.checkCirclePosition(1);
-            game.checkCirclePosition(2);
-            game.checkCirclePosition(3);
-            game.checkCirclePosition(4);
-
             // TODO 9 : Iterate over the array
-           
+            for (var i = 0; i < circles.length; i++) {
+                physikz.updatePosition(circles[i]);
+            };
+            for (var i = 0; i < circles.length; i++) {
+                game.checkCirclePosition(circles[i]);
+            };
             
         }
     
@@ -74,14 +65,20 @@ var init = function (window) {
         game.checkCirclePosition = function(circle) {
 
             // if the circle has gone past the RIGHT side of the screen then place it on the LEFT
-            if ( circle.x > canvas.width ) {
+            if (circle.x > canvas.width ) {
                 circle.x = 0;
             }
             
             // TODO 6 : YOUR CODE STARTS HERE //////////////////////
-            
-
-
+            if (circle.x < 0) {
+                circle.x = canvas.width
+            }
+            if (circle.y > canvas.height) {
+                circle.y = 0
+            }
+            if (circle.y < 0) {
+                circle.y = canvas.height
+            }
             // YOUR TODO 6 CODE ENDS HERE //////////////////////////
         }
         
