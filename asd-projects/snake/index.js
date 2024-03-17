@@ -108,13 +108,27 @@ function moveSnake() {
   column/row properties. 
   
   */
-  for (var i = snake.body.length - 1; i > 0; i--) {
+  for (var i = 1; i < snake.body.length; i++) {
     var snakeSquare = snake.body[i];
-
-    var nextSnakeSquare = "???";
-    var nextRow = "???";
-    var nextColumn = "???";
-    var nextDirection = "???";
+    var j = i - 1
+    var nextSnakeSquare = snake.body[j];
+    if (nextSnakeSquare.direction === "left") {
+      var nextRow = nextSnakeSquare.row
+      var nextColumn = nextSnakeSquare.column +  1
+    }
+    else if (nextSnakeSquare.direction === "right") {
+      nextRow = nextSnakeSquare.row
+      nextColumn = nextSnakeSquare.column - 1
+    }
+    else if (nextSnakeSquare.direction === "up") {
+      nextRow = nextSnakeSquare.row + 1
+      nextColumn = nextSnakeSquare.column
+    }
+    else if (nextSnakeSquare.direction === "down") {
+      nextRow = nextSnakeSquare.row - 1
+      nextColumn = nextSnakeSquare.column 
+    }
+    var nextDirection = nextSnakeSquare.direction;
 
     snakeSquare.direction = nextDirection;
     snakeSquare.row = nextRow;
@@ -209,18 +223,18 @@ function handleAppleCollision() {
   */
   if (snake.tail.direction === "left") {
     var row = snake.tail.row
-    var column = snake.tail.column + 1
+    var column = snake.tail.column
   }
   if (snake.tail.direction === "right") {
     var row = snake.tail.row
-    var column = snake.tail.column - 1
+    var column = snake.tail.column
   }
   if (snake.tail.direction === "up") {
-    var row = snake.tail.row + 1
+    var row = snake.tail.row
     var column = snake.tail.column
   }
   if (snake.tail.direction === "down") {
-    var row = snake.tail.row - 1
+    var row = snake.tail.row
     var column = snake.tail.column
   }
 
@@ -238,7 +252,6 @@ function hasCollidedWithSnake() {
   head and each part of the snake's body also knows its own row and column.
   
   */
-
   return false;
 }
 
@@ -341,6 +354,7 @@ function getRandomAvailablePosition() {
     not occupied by a snakeSquare in the snake's body. If it is then set 
     spaceIsAvailable to false so that a new position is generated.
     */
+
   }
 
   return randomPosition;
